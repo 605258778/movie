@@ -1,6 +1,6 @@
 var express = require('express');
-var path = require('path');
 var bodyParser = require('body-parser')
+var path = require('path');
 var mongoose = require('mongoose')
 var _ = require('underscore')
 var Movie = require('./models/movie')
@@ -11,10 +11,10 @@ mongoose.connect('mongodb://localhost/movie')
 
 app.set('views','./views/pages');
 app.set('view engine','jade');
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname,'/public')));
 app.locals.moment = require('moment')
-app.use('/public',express.static(path.join(__dirname,'public')))
 app.listen(port);
 console.log('movie start');
 
@@ -29,7 +29,6 @@ app.get('/',function(req,res){
 			movies:movies
 		})
 	})
-	
 })
 
 app.get('/movie/:id',function(req,res){
@@ -123,16 +122,19 @@ app.get('/admin/list',function(req,res){
 	})
 })
 
-app.delete('/admin/list',function(req,res) {
-    var id=req.query.id
-    if(id){
-        Movie.remove({_id,id},function(err,movie) {
-            if(err){
-                console.log(err)
-            }
-            else{
-                res.json({success:1})
-            }
-        })
-    }
-})
+app.delete("/admin/list", function(req, res) {
+		var id = req.query.id;
+		if (id) {
+			Movie.remove({
+				_id: id
+			}, function(err, movie) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.json({
+						success: 1
+					});
+				}
+			});
+		}
+	});
