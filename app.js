@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser')
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
 var morgan = require('morgan')
+var multipart = require('connect-multiparty')
 var port = process.env.PORT||3000;
 var app = express();
 var dbUrl = 'mongodb://localhost/movie'
@@ -19,6 +20,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname,'/public')));
 app.use(cookieParser())
+app.use(multipart())
+
 app.use(session({
  	secret: 'movie',
  	resave: false,

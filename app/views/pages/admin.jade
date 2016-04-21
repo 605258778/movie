@@ -3,7 +3,7 @@ extends ../layout
 block content
 	.container.contentTop
 		.row
-			form.form-horizontal(method="POST", action="/admin/movie")
+			form.form-horizontal(method="post", action="/admin/movie",enctype="multipart/form-data")
 				.form-group
 					label.col-sm-2.control-label(for="#douban") 豆瓣
 					.col-sm-10

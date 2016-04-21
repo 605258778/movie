@@ -43,7 +43,7 @@ exports.search = function (req, res) {
         // console.log(movies)
         var results = movies.slice(index, index + count)
         // console.log(results)
-        res.render('result', {
+        res.render('results', {
           title : 'Imovie 首页',
           keyword: categories[0].name,
           movies: results,
@@ -54,7 +54,7 @@ exports.search = function (req, res) {
     })
   } else {
     Movie
-      .find({title: new RegExp(search + '*', 'i')})
+      .find({title: new RegExp(search + '.*', 'i')})
       .exec(function (err, movies) {
         if (err) {
           console.log(err)
